@@ -16,9 +16,15 @@ public class HttpClient
     private readonly System.Net.Http.HttpClient _httpClient;
     private readonly string _endpointUrl;
 
-    private HttpClient(string url, string organization, string authToken, string streamName = "default")
+    private HttpClient(string url, string organization, string authToken, string streamName = "default", bool allowUntrustedCertificates = false)
     {
-        _httpClient = new System.Net.Http.HttpClient
+        var handler = new HttpClientHandler();
+        if (allowUntrustedCertificates)
+        {
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+        }
+
+        _httpClient = new System.Net.Http.HttpClient(handler)
         {
             BaseAddress = new Uri(url),
             DefaultRequestHeaders =
@@ -29,8 +35,8 @@ public class HttpClient
         _endpointUrl = BuildEndpointUrl(organization, streamName);
     }
 
-    public HttpClient(string url, string organization, string key, string password, string streamName = "default")
-        : this(url, organization, ToBase64String($"{key}:{password}"), streamName)
+    public HttpClient(string url, string organization, string key, string password, string streamName = "default", bool allowUntrustedCertificates = false)
+        : this(url, organization, ToBase64String($"{key}:{password}"), streamName, allowUntrustedCertificates)
     {
     }
 

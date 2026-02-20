@@ -15,7 +15,8 @@ public static class OpenObserveLoggerConfigurationExtensions
         string login = "",
         string key = "",
         string streamName = "default",
-        LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum
+        LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+        bool allowUntrustedCertificates = false
     )
     {
         if (string.IsNullOrEmpty(url))
@@ -26,7 +27,7 @@ public static class OpenObserveLoggerConfigurationExtensions
             throw new ArgumentException($"Argument is null or empty: {nameof(login)}", nameof(login));
         if (string.IsNullOrEmpty(key))
             throw new ArgumentException($"Argument is null or empty: {nameof(key)}", nameof(key));
-        var sink = new Sink(new HttpClient(url, organization, login, key, streamName));
+        var sink = new Sink(new HttpClient(url, organization, login, key, streamName, allowUntrustedCertificates));
         return loggerConfiguration.Sink(new PeriodicBatchingSink(sink, new PeriodicBatchingSinkOptions()), restrictedToMinimumLevel);
     }
 }
