@@ -1,5 +1,13 @@
-# Serilog Sink for OpenObserve [![Build status](https://ci.appveyor.com/api/projects/status/d73v1w8rejebgtrv/branch/main?svg=true)](https://ci.appveyor.com/project/konradkaminski/serilog-sink-openobserve-kkp/branch/main) ![Nuget](https://img.shields.io/nuget/v/Serilog.Sinks.OpenObserve-KKP?logo=nuget)
+# Serilog Sink for OpenObserve [![Build status](https://ci.appveyor.com/api/projects/status/d73v1w8rejebgtrv/branch/main?svg=true)](https://ci.appveyor.com/project/konradkaminski/serilog-sink-openobserve-kkp/branch/main) ![Nuget](https://img.shields.io/nuget/v/Serilog.Sinks.OpenObserve-NG?logo=nuget)
 
+
+> **Fork notice:** This package (`Serilog.Sinks.OpenObserve-NG`) is a fork of
+> [`Serilog.Sinks.OpenObserve-KKP`](https://github.com/konradkaminski/serilog-sinks-openobserve-kkp)
+> by [Konrad Kamiński - Pawlak](https://github.com/konradkaminski), with additional
+> features. The original package remains the upstream reference implementation.
+>
+> **New in this fork (v1.1.0):** `allowUntrustedCertificates` parameter — useful for
+> self-hosted OpenObserve instances using self-signed certificates.
 
 This [Serilog](https://github.com/serilog/serilog) sink allows to log to [OpenObserve](https://openobserve.ai/) as the observability backend from your .NET application.
 
@@ -12,7 +20,7 @@ Precondition: Serilog has to be referenced in your project.
 
 Install sink in your project.
 ```powershell
-dotnet add package Serilog.Sinks.OpenObserve-KKP
+dotnet add package Serilog.Sinks.OpenObserve-NG
 ```
 
 ### Using code configuration
@@ -56,7 +64,7 @@ In your `appsettings.json` file, extend the `Serilog` node or fully add the foll
 ```json
 {
   "Serilog": {
-    "Using": ["Serilog.Sinks.OpenObserve-KKP"], // Enable OpenObserve-KKP sink
+    "Using": ["Serilog.Sinks.OpenObserve-NG"], // Enable OpenObserve-NG sink
     "MinimumLevel": "Debug", // General minimum level of Serilog
     "WriteTo": [
       {
@@ -67,7 +75,8 @@ In your `appsettings.json` file, extend the `Serilog` node or fully add the foll
           "login": "[username]",
           "key": "[password or token]",
           "streamName": "[custom stream name if desired]", // Optional
-          "restrictedToMinimumLevel": "Information" // Optional
+          "restrictedToMinimumLevel": "Information", // Optional
+          "allowUntrustedCertificates": false // Optional, set true for self-signed certs
         }
       }
     ],
@@ -125,6 +134,7 @@ More information about using Serilog is available in the [Serilog Documentation]
 | **Key** | Password or Token for authentication for the provided user | `SecureToken` |
 | **StreamName** | ObenObserve stream identifier | `default` |
 | **RestrictedToMinimumLevel** | Overwrite minimum log severity to be handled for this sink | `Information`<br/>Default: the same as Serilog global </br>Options: `Serilog.Events.LogEventLevel`  |
+| **AllowUntrustedCertificates** | Skip SSL certificate validation. Useful for self-hosted instances with self-signed certificates. **Not recommended for production.** | `false` (default) |
 
 Please note:
 It is NOT recommended to store your user password in a configuration of your application. Those credentials allow to login into the OpenObserve web interface. It is highly recommended to _only_ use the token as key.

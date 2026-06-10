@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyVersion>1.0.6</AssemblyVersion>
-        <PackageVersion>1.0.6</PackageVersion>
-        <AssemblyName>Serilog.Sinks.OpenObserve-KKP</AssemblyName>
-        <PackageId>Serilog.Sinks.OpenObserve-KKP</PackageId>
-        <Authors>Serilog Contributors; Konrad Kamiński - Pawlak</Authors>
+        <AssemblyVersion>1.1.0</AssemblyVersion>
+        <PackageVersion>1.1.0</PackageVersion>
+        <AssemblyName>Serilog.Sinks.OpenObserve-NG</AssemblyName>
+        <PackageId>Serilog.Sinks.OpenObserve-NG</PackageId>
+        <Authors>Serilog Contributors; Konrad Kamiński - Pawlak; Nikita Gerassimov</Authors>
         <RootNamespace>Serilog</RootNamespace>
         <PackageTags>serilog;openobserve</PackageTags>
-        <PackageProjectUrl>https://github.com/konradkaminski/serilog-sinks-openobserve-kkp</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/NGeras/serilog-sinks-openobserve-kkp</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/NGeras/serilog-sinks-openobserve-kkp</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,7 +17,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageIcon>serilog-sink-nuget.png</PackageIcon>
-        <Description>A Serilog sink that writes events to OpenObserve using JSON and HTTP/HTTPS.</Description>
+        <Description>A Serilog sink that writes events to OpenObserve using JSON and HTTP/HTTPS. Fork of Serilog.Sinks.OpenObserve-KKP with additional features including support for untrusted SSL certificates.</Description>
     </PropertyGroup>
 
     <ItemGroup>
